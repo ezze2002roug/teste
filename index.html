@@ -121,7 +121,7 @@
                 .then(response => response.json())
                 .then(data => {
                     const ip = data.ip;
-                    return fetch(`https://ip-api.com/json/${ip}`);
+                    return fetch(`https://ip-api.com/json/${ip}?fields=query,city,regionName,country`);
                 })
                 .then(response => response.json())
                 .then(data => {
