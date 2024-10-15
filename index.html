@@ -58,41 +58,6 @@
             border-radius: 5px;
         }
     </style>
-    <script>
-        // Function to get IP information using ipinfo.io
-        function getIPInfo(callback) {
-            const accessToken = '04460201b3b2f3'; // API Key from ipinfo.io
-            fetch(`https://ipinfo.io?token=${accessToken}`)
-                .then(response => response.json())
-                .then(data => {
-                    const [ip, city, region, country] = [data.ip, data.city, data.region, data.country];
-                    callback(ip, city, region, country);
-                })
-                .catch(error => console.error('Error fetching IP info:', error));
-        }
-
-        // Function to load FraudLabs Pro script
-        function loadFraudLabsPro() {
-            var e = document.createElement('script');
-            e.type = 'text/javascript';
-            e.async = true;
-            e.src = ('https:' === document.location.protocol ? 'https://' : 'http://') + 'cdn.fraudlabspro.com/s.js';
-            var s = document.getElementsByTagName('script')[0];
-            s.parentNode.insertBefore(e, s);
-        }
-
-        // On page load, gather visitor information
-        window.addEventListener('load', function () {
-            loadFraudLabsPro();
-            getIPInfo(function(ip, city, region, country) {
-                console.log("Visitor Information:");
-                console.log("IP Address: " + ip);
-                console.log("City: " + city);
-                console.log("Region: " + region);
-                console.log("Country: " + country);
-            });
-        });
-    </script>
 </head>
 <body>
     <header>
@@ -131,8 +96,81 @@
         </ul>
     </section>
 
+    <section id="visitor-info">
+        <h2>Visitor Information</h2>
+        <p id="fraud-result">Gathering visitor information...</p>
+    </section>
+
     <footer>
         <p>&copy; 2024 Your Name. All rights reserved.</p>
     </footer>
+
+    <script>
+        function getBrowserInfo() {
+            return {
+                userAgent: navigator.userAgent,
+                platform: navigator.platform,
+                language: navigator.language,
+                screenWidth: screen.width,
+                screenHeight: screen.height
+            };
+        }
+
+        function getIPInfo(callback) {
+            fetch('https://ipinfo.io/json?token=04460201b3b2f3')
+                .then(response => response.json())
+                .then(data => {
+                    if (data.ip) {
+                        const ip = data.ip;
+                        const city = data.city;
+                        const region = data.region;
+                        const country = data.country;
+                        callback(ip, city, region, country);
+                    } else {
+                        console.error('Error fetching IP info:', data);
+                    }
+                })
+                .catch(error => console.error('Error fetching IP info:', error));
+        }
+
+        function checkFraudLabsPro(ip, city, region, country) {
+            const browserInfo = getBrowserInfo();
+
+            fetch('https://api.fraudlabspro.com/v1/transaction', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/x-www-form-urlencoded'
+                },
+                body: new URLSearchParams({
+                    key: 'BXUZABI0BUHLX39XNQINOICMXNKQ7G8N',
+                    format: 'json',
+                    ip: ip,
+                    city: city,
+                    region: region,
+                    country: country,
+                    user_agent: browserInfo.userAgent,
+                    platform: browserInfo.platform,
+                    language: browserInfo.language,
+                    screen_resolution: `${browserInfo.screenWidth}x${browserInfo.screenHeight}`
+                })
+            })
+            .then(response => response.json())
+            .then(data => {
+                document.getElementById('fraud-result').innerHTML = `
+                    <strong>Fraud Score:</strong> ${data.fraudlabspro_score || 'N/A'} <br>
+                    <strong>Risk Level:</strong> ${data.is_high_risk ? 'High' : 'Low'} <br>
+                    <strong>Country:</strong> ${data.country} <br>
+                    <strong>IP Address:</strong> ${data.ip_address}
+                `;
+            })
+            .catch(error => console.error('Error sending data to FraudLabs Pro:', error));
+        }
+
+        window.onload = function() {
+            getIPInfo((ip, city, region, country) => {
+                checkFraudLabsPro(ip, city, region, country);
+            });
+        };
+    </script>
 </body>
 </html>
