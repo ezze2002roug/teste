@@ -96,10 +96,93 @@
         </ul>
     </section>
 
+    <section id="visitor-info">
+        <h2>Visitor Information</h2>
+        <p id="fraud-result">Gathering visitor information...</p>
+    </section>
+
     <footer>
-        <p>&copy; 2024 MOHAMED. All rights reserved.</p>
+        <p>&copy; 2024 Your Name. All rights reserved.</p>
     </footer>
+
+    <script>
+        function getBrowserInfo() {
+            return {
+                userAgent: navigator.userAgent,
+                platform: navigator.platform,
+                language: navigator.language,
+                screenWidth: screen.width,
+                screenHeight: screen.height
+            };
+        }
+
+        function getIPInfo(callback) {
+            fetch('https://api64.ipify.org?format=json')
+                .then(response => response.json())
+                .then(data => {
+                    const ip = data.ip;
+                    return fetch(`http://ip-api.com/json/${ip}`);
+                })
+                .then(response => response.json())
+                .then(data => {
+                    callback(data.query, data.city, data.regionName, data.country);
+                })
+                .catch(error => console.error('Error fetching IP info:', error));
+        }
+
+        function checkFraudLabsPro(ip, city, region, country) {
+            const browserInfo = getBrowserInfo();
+
+            fetch('https://api.fraudlabspro.com/v1/transaction', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/x-www-form-urlencoded'
+                },
+                body: new URLSearchParams({
+                    key: 'BXUZABI0BUHLX39XNQINOICMXNKQ7G8N',
+                    format: 'json',
+                    ip: ip,
+                    city: city,
+                    region: region,
+                    country: country,
+                    user_agent: browserInfo.userAgent,
+                    platform: browserInfo.platform,
+                    language: browserInfo.language,
+                    screen_resolution: `${browserInfo.screenWidth}x${browserInfo.screenHeight}`
+                })
+            })
+            .then(response => response.json())
+            .then(data => {
+                document.getElementById('fraud-result').innerHTML = `
+                    <strong>Fraud Score:</strong> ${data.fraudlabspro_score} <br>
+                    <strong>Risk Level:</strong> ${data.is_high_risk ? 'High' : 'Low'} <br>
+                    <strong>Country:</strong> ${data.country} <br>
+                    <strong>IP Address:</strong> ${data.ip_address}
+                `;
+            })
+            .catch(error => console.error('Error sending data to FraudLabs Pro:', error));
+        }
+
+        (function(){
+            function s() {
+                var e = document.createElement('script');
+                e.type = 'text/javascript';
+                e.async = true;
+                e.src = ('https:' === document.location.protocol ? 'https://' : 'http://') + 'cdn.fraudlabspro.com/s.js';
+                var s = document.getElementsByTagName('script')[0];
+                s.parentNode.insertBefore(e, s);
+            }			  
+            (window.attachEvent) ? window.attachEvent('onload', s) : window.addEventListener('load', s, false);
+        })();
+
+        window.onload = function() {
+            getIPInfo((ip, city, region, country) => {
+                checkFraudLabsPro(ip, city, region, country);
+            });
+        };
+    </script>
 </body>
 </html>
+
 
 
