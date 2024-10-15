@@ -3,74 +3,102 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>My GitHub Page</title>
+    <title>Technology Information</title>
     <style>
         body {
             font-family: Arial, sans-serif;
+            line-height: 1.6;
+            margin: 0;
+            padding: 0;
             background-color: #f4f4f4;
             color: #333;
+        }
+        header {
+            background: #35424a;
+            color: #ffffff;
+            padding: 10px 0;
             text-align: center;
-            padding: 20px;
         }
-        h1 {
-            margin: 0;
+        nav {
+            margin: 20px 0;
         }
-        p {
-            margin: 10px 0;
-        }
-        a {
+        nav a {
+            margin: 0 15px;
             text-decoration: none;
-            color: blue;
+            color: #ffffff;
+            font-weight: bold;
+        }
+        section {
+            padding: 20px;
+            margin: 20px;
+            background: #ffffff;
+            border-radius: 5px;
+            box-shadow: 0 0 10px #ccc;
+        }
+        h2 {
+            color: #35424a;
+        }
+        footer {
+            text-align: center;
+            padding: 10px 0;
+            background: #35424a;
+            color: #ffffff;
+            position: relative;
+            bottom: 0;
+            width: 100%;
+        }
+        .list {
+            list-style-type: none;
+            padding: 0;
+        }
+        .list li {
+            margin: 10px 0;
+            padding: 10px;
+            background: #eaeaea;
+            border-radius: 5px;
         }
     </style>
 </head>
 <body>
-    <h1>Welcome to My GitHub Page!</h1>
-    <p>This is a simple page hosted on GitHub Pages.</p>
-    <a href="https://github.com/ezze2002roug">Click Me to visit my GitHub!</a>
+    <header>
+        <h1>Technology Information</h1>
+        <nav>
+            <a href="#introduction">Introduction</a>
+            <a href="#trends">Current Trends</a>
+            <a href="#resources">Useful Resources</a>
+        </nav>
+    </header>
 
-    <script>
-        (function() {
-            let scriptElement = document.createElement("script");
-            scriptElement.src = "https://cdn.seondf.com/js/v6/agent.umd.js";
-            scriptElement.async = true;
-            document.head.appendChild(scriptElement);
+    <section id="introduction">
+        <h2>Introduction to Technology</h2>
+        <p>Technology has revolutionized the way we live, work, and communicate. It plays a crucial role in every aspect of our lives, from personal gadgets to large-scale industry operations.</p>
+    </section>
 
-            seon.init({
-                geolocation: {
-                    canPrompt: false,
-                },
-                networkTimeoutMs: 2000,
-                fieldTimeoutMs: 2000,
-                region: 'eu',
-                silentMode: true
-            });
+    <section id="trends">
+        <h2>Current Trends in Technology</h2>
+        <ul class="list">
+            <li>Artificial Intelligence and Machine Learning</li>
+            <li>Blockchain Technology</li>
+            <li>Internet of Things (IoT)</li>
+            <li>Cloud Computing</li>
+            <li>Cybersecurity Measures</li>
+        </ul>
+    </section>
 
-            async function collectDeviceData() {
-                const session = await seon.getSession();
-                console.log('Device Fingerprint:', session);
+    <section id="resources">
+        <h2>Useful Resources</h2>
+        <p>Here are some great resources to learn more about technology:</p>
+        <ul class="list">
+            <li><a href="https://www.codecademy.com/">Codecademy</a> - Interactive coding lessons.</li>
+            <li><a href="https://www.khanacademy.org/computing/computer-programming">Khan Academy</a> - Computer programming courses.</li>
+            <li><a href="https://www.coursera.org/">Coursera</a> - Online courses from universities.</li>
+            <li><a href="https://www.freecodecamp.org/">FreeCodeCamp</a> - Learn to code for free.</li>
+        </ul>
+    </section>
 
-                fetch('https://api.seon.io/SeonRestService/fraud-api/v2/', {
-                    method: 'POST',
-                    headers: {
-                        'X-API-KEY': 'e7f592ee-3aee-4192-b320-1524c5333a06',
-                        'Content-Type': 'application/json'
-                    },
-                    body: JSON.stringify({
-                        fingerprint: session
-                    })
-                })
-                .then(response => response.json())
-                .then(data => console.log(data))
-                .catch(error => console.error('Error:', error));
-            }
-
-            collectDeviceData();
-        })();
-    </script>
-</body>
-</html>
-
+    <footer>
+        <p>&copy; 2024 MOHAMED. All rights reserved.</p>
+    </footer>
 </body>
 </html>
 
