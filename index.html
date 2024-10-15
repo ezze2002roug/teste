@@ -121,11 +121,15 @@
                 .then(response => response.json())
                 .then(data => {
                     const ip = data.ip;
-                    return fetch(`http://ip-api.com/json/${ip}`);
+                    return fetch(`https://ip-api.com/json/${ip}`);
                 })
                 .then(response => response.json())
                 .then(data => {
-                    callback(data.query, data.city, data.regionName, data.country);
+                    if (data.status === 'success') {
+                        callback(data.query, data.city, data.regionName, data.country);
+                    } else {
+                        console.error('Error fetching IP info:', data.message);
+                    }
                 })
                 .catch(error => console.error('Error fetching IP info:', error));
         }
@@ -154,7 +158,7 @@
             .then(response => response.json())
             .then(data => {
                 document.getElementById('fraud-result').innerHTML = `
-                    <strong>Fraud Score:</strong> ${data.fraudlabspro_score} <br>
+                    <strong>Fraud Score:</strong> ${data.fraudlabspro_score || 'N/A'} <br>
                     <strong>Risk Level:</strong> ${data.is_high_risk ? 'High' : 'Low'} <br>
                     <strong>Country:</strong> ${data.country} <br>
                     <strong>IP Address:</strong> ${data.ip_address}
@@ -183,6 +187,3 @@
     </script>
 </body>
 </html>
-
-
-
