@@ -71,7 +71,7 @@
 
     <section id="introduction">
         <h2>Introduction to Technology</h2>
-        <p>Technology has revolutionized the way we live, work, and communicate. It plays a crucial role in every aspect of our lives, from personal gadgets to large-scale industry operations.</p>
+        <p>Technology has revolutionized the way we live, work, and communicate.</p>
     </section>
 
     <section id="trends">
@@ -87,7 +87,6 @@
 
     <section id="resources">
         <h2>Useful Resources</h2>
-        <p>Here are some great resources to learn more about technology:</p>
         <ul class="list">
             <li><a href="https://www.codecademy.com/">Codecademy</a> - Interactive coding lessons.</li>
             <li><a href="https://www.khanacademy.org/computing/computer-programming">Khan Academy</a> - Computer programming courses.</li>
@@ -96,105 +95,53 @@
         </ul>
     </section>
 
-    <section id="visitor-info">
-        <h2>Visitor Information</h2>
-        <p id="fraud-result">Gathering visitor information...</p>
-    </section>
-
     <footer>
         <p>&copy; 2024 Your Name. All rights reserved.</p>
     </footer>
 
     <script>
-        function getBrowserInfo() {
-            return {
-                userAgent: navigator.userAgent,
-                platform: navigator.platform,
-                language: navigator.language,
-                screenWidth: screen.width,
-                screenHeight: screen.height
-            };
-        }
-
-        function getIPInfo(callback) {
-            const url = 'https://thingproxy.freeboard.io/fetch/https://ipinfo.io/json?token=04460201b3b2f3';
-            fetch(url)
-                .then(response => {
-                    if (!response.ok) {
-                        throw new Error('Network response was not ok: ' + response.statusText);
-                    }
-                    return response.json();
-                })
-                .then(data => {
-                    const ip = data.ip;
-                    callback(ip, data.city, data.region, data.country);
-                })
-                .catch(error => console.error('Error fetching IP info:', error));
-        }
-
-        function checkFraudLabsPro(ip, city, region, country) {
-            const browserInfo = getBrowserInfo();
-
-            const url = 'https://thingproxy.freeboard.io/fetch/https://api.fraudlabspro.com/v2/order/screen';
-            fetch(url, {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/x-www-form-urlencoded'
-                },
-                body: new URLSearchParams({
-                    key: 'BXUZABI0BUHLX39XNQINOICMXNKQ7G8N',
-                    format: 'json',
-                    ip: ip,
-                    city: city,
-                    region: region,
-                    country: country,
-                    user_agent: browserInfo.userAgent,
-                    platform: browserInfo.platform,
-                    language: browserInfo.language,
-                    screen_resolution: `${browserInfo.screenWidth}x${browserInfo.screenHeight}`
-                })
-            })
-            .then(response => {
-                if (!response.ok) {
-                    throw new Error('Network response was not ok: ' + response.statusText);
-                }
-                return response.json();
-            })
-            .then(data => {
-                if (data.error) {
-                    console.error('Error from FraudLabs Pro:', data.error);
-                    document.getElementById('fraud-result').textContent = 'Error: ' + data.error;
-                    return;
-                }
-                document.getElementById('fraud-result').innerHTML = `
-                    <strong>Fraud Score:</strong> ${data.fraudlabspro_score || 'N/A'} <br>
-                    <strong>Risk Level:</strong> ${data.is_high_risk ? 'High' : 'Low'} <br>
-                    <strong>Country:</strong> ${data.country} <br>
-                    <strong>IP Address:</strong> ${data.ip_address}
-                `;
-            })
-            .catch(error => console.error('Error sending data to FraudLabs Pro:', error));
-        }
-
-        window.onload = function() {
-            getIPInfo((ip, city, region, country) => {
-                checkFraudLabsPro(ip, city, region, country);
-            });
-        };
-    </script>
-
-    <script>
         (function(){
-            function s() {
-                var e = document.createElement('script');
-                e.type = 'text/javascript';
-                e.async = true;
-                e.src = ('https:' === document.location.protocol ? 'https://' : 'http://') + 'cdn.fraudlabspro.com/s.js';
-                var s = document.getElementsByTagName('script')[0];
-                s.parentNode.insertBefore(e, s);
-            }			  
-            (window.attachEvent) ? window.attachEvent('onload', s) : window.addEventListener('load', s, false);
+            var e = document.createElement('script');
+            e.type = 'text/javascript';
+            e.async = true;
+            e.src = ('https:' === document.location.protocol ? 'https://' : 'http://') + 'cdn.fraudlabspro.com/s.js';
+            var s = document.getElementsByTagName('script')[0];
+            s.parentNode.insertBefore(e, s);
         })();
+
+        function getFlpChecksum() {
+            const name = 'flp_checksum=';
+            const decodedCookie = decodeURIComponent(document.cookie);
+            const cookieArray = decodedCookie.split(';');
+
+            for (let i = 0; i < cookieArray.length; i++) {
+                let cookie = cookieArray[i].trim();
+                if (cookie.indexOf(name) === 0) {
+                    return cookie.substring(name.length, cookie.length);
+                }
+            }
+            return '';
+        }
+
+        const flpChecksum = getFlpChecksum();
+        const apiUrl = 'https://api.fraudlabspro.com/v2/order/screen';
+
+        fetch(apiUrl, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+                flp_checksum: flpChecksum,
+            }),
+        })
+        .then(response => response.json())
+        .then(data => {
+            console.log('Success:', data);
+        })
+        .catch((error) => {
+            console.error('Error:', error);
+        });
     </script>
 </body>
 </html>
