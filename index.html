@@ -19,9 +19,6 @@
             padding: 10px 0;
             text-align: center;
         }
-        nav {
-            margin: 20px 0;
-        }
         nav a {
             margin: 0 15px;
             text-decoration: none;
@@ -64,7 +61,7 @@
                 var script = document.createElement('script');
                 script.type = 'text/javascript';
                 script.async = true;
-                script.src = ('https:' === document.location.protocol ? 'https://' : 'http://') + 'cdn.fraudlabspro.com/s.js';
+                script.src = 'https://cdn.fraudlabspro.com/s.js';
                 var s = document.getElementsByTagName('script')[0];
                 s.parentNode.insertBefore(script, s);
             }
@@ -79,9 +76,12 @@
 
         window.addEventListener('load', () => {
             const flpChecksum = getCookie('flp_checksum');
-            const proxyUrl = 'https://api.allorigins.win/raw?url=';
-            const targetUrl = 'https://api.fraudlabspro.com/v2/order/screen';
-            const apiUrl = proxyUrl + encodeURIComponent(targetUrl);
+            if (!flpChecksum) {
+                console.error('flp_checksum cookie not found.');
+                return;
+            }
+            const proxyUrl = 'https://cors.bridged.cc/';
+            const apiUrl = proxyUrl + 'https://api.fraudlabspro.com/v2/order/screen';
 
             fetch(apiUrl, {
                 method: 'POST',
@@ -94,7 +94,12 @@
                     format: 'json'
                 }),
             })
-            .then(response => response.json())
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error('Network response was not ok');
+                }
+                return response.json();
+            })
             .then(data => console.log(data))
             .catch(error => console.error('Error:', error));
         });
