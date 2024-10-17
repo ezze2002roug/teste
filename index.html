@@ -117,8 +117,14 @@
         }
 
         function getIPInfo(callback) {
-            fetch('https://ipinfo.io/json?token=YOUR_TOKEN_HERE')
-                .then(response => response.json())
+            const url = 'https://thingproxy.freeboard.io/fetch/https://ipinfo.io/json?token=04460201b3b2f3';
+            fetch(url)
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error('Network response was not ok: ' + response.statusText);
+                    }
+                    return response.json();
+                })
                 .then(data => {
                     const ip = data.ip;
                     callback(ip, data.city, data.region, data.country);
@@ -129,7 +135,6 @@
         function checkFraudLabsPro(ip, city, region, country) {
             const browserInfo = getBrowserInfo();
 
-            // استخدام بروكسي مختلف
             const url = 'https://thingproxy.freeboard.io/fetch/https://api.fraudlabspro.com/v2/order/screen';
             fetch(url, {
                 method: 'POST',
