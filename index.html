@@ -19,6 +19,9 @@
             padding: 10px 0;
             text-align: center;
         }
+        nav {
+            margin: 20px 0;
+        }
         nav a {
             margin: 0 15px;
             text-decoration: none;
@@ -55,43 +58,57 @@
             border-radius: 5px;
         }
     </style>
+    <script src="https://cdn.seondf.com/js/v6/agent.umd.js"></script>
     <script>
-        function getCookie(name) {
-            const value = `; ${document.cookie}`;
-            const parts = value.split(`; ${name}=`);
-            if (parts.length === 2) return parts.pop().split(';').shift();
-        }
+        const apiUrl = 'https://api.seon.io/SeonRestService/fraud-api/v2/';
+        const apiKey = 'e7f592ee-3aee-4192-b320-1524c5333a06';
 
-        window.addEventListener('load', () => {
-            const flpChecksum = getCookie('flp_checksum');
-            if (!flpChecksum) {
-                console.error('flp_checksum cookie not found.');
+        const config = {
+            geolocation: {
+                canPrompt: false,
+            },
+            networkTimeoutMs: 2000,
+            fieldTimeoutMs: 2000,
+            region: 'eu',
+            silentMode: true,
+        };
+
+        window.onload = async function () {
+            seon.init();
+
+            let session;
+            try {
+                session = await seon.getSession(config);
+                if (!session) {
+                    throw new Error('Failed to generate session');
+                }
+            } catch (error) {
+                console.error('Error getting device fingerprint:', error);
                 return;
             }
-            console.log('flp_checksum:', flpChecksum); // تحقق من القيمة
 
-            const apiUrl = 'https://cors-anywhere.herokuapp.com/https://api.fraudlabspro.com/v2/order/screen';
+            try {
+                const response = await fetch(apiUrl, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Authorization': `Bearer ${apiKey}`,
+                    },
+                    body: JSON.stringify({
+                        session: session,
+                        context: {
+                            page: window.location.href,
+                            visitTime: new Date().toISOString(),
+                        },
+                    }),
+                });
 
-            fetch(apiUrl, {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify({
-                    flp_checksum: flpChecksum,
-                    api_key: 'BXUZABI0BUHLX39XNQINOICMXNKQ7G8N',
-                    format: 'json'
-                }),
-            })
-            .then(response => {
-                if (!response.ok) {
-                    throw new Error('Network response was not ok: ' + response.statusText);
-                }
-                return response.json();
-            })
-            .then(data => console.log(data))
-            .catch(error => console.error('Error:', error));
-        });
+                const data = await response.json();
+                console.log('Response from SEON:', data);
+            } catch (error) {
+                console.error('Error sending session to SEON:', error);
+            }
+        };
     </script>
 </head>
 <body>
@@ -103,10 +120,12 @@
             <a href="#resources">Useful Resources</a>
         </nav>
     </header>
+
     <section id="introduction">
         <h2>Introduction to Technology</h2>
-        <p>Technology has revolutionized the way we live, work, and communicate.</p>
+        <p>Technology has revolutionized the way we live, work, and communicate. It plays a crucial role in every aspect of our lives, from personal gadgets to large-scale industry operations.</p>
     </section>
+
     <section id="trends">
         <h2>Current Trends in Technology</h2>
         <ul class="list">
@@ -117,15 +136,18 @@
             <li>Cybersecurity Measures</li>
         </ul>
     </section>
+
     <section id="resources">
         <h2>Useful Resources</h2>
+        <p>Here are some great resources to learn more about technology:</p>
         <ul class="list">
-            <li><a href="https://www.codecademy.com/">Codecademy</a></li>
-            <li><a href="https://www.khanacademy.org/computing/computer-programming">Khan Academy</a></li>
-            <li><a href="https://www.coursera.org/">Coursera</a></li>
-            <li><a href="https://www.freecodecamp.org/">FreeCodeCamp</a></li>
+            <li><a href="https://www.codecademy.com/">Codecademy</a> - Interactive coding lessons.</li>
+            <li><a href="https://www.khanacademy.org/computing/computer-programming">Khan Academy</a> - Computer programming courses.</li>
+            <li><a href="https://www.coursera.org/">Coursera</a> - Online courses from universities.</li>
+            <li><a href="https://www.freecodecamp.org/">FreeCodeCamp</a> - Learn to code for free.</li>
         </ul>
     </section>
+
     <footer>
         <p>&copy; 2024 Your Name. All rights reserved.</p>
     </footer>
