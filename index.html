@@ -121,14 +121,14 @@
                 .then(response => response.json())
                 .then(data => {
                     const ip = data.ip;
-                    return callback(ip, data.city, data.region, data.country);
+                    callback(ip, data.city, data.region, data.country);
                 })
                 .catch(error => console.error('Error fetching IP info:', error));
         }
 
         function checkFraudLabsPro(ip, city, region, country) {
             const browserInfo = getBrowserInfo();
-            
+
             const apiUrl = `https://api.fraudlabspro.com/v1/transaction?key=BXUZABI0BUHLX39XNQINOICMXNKQ7G8N&format=json&ip=${ip}&city=${city}&region=${region}&country=${country}&user_agent=${browserInfo.userAgent}&platform=${browserInfo.platform}&language=${browserInfo.language}&screen_resolution=${browserInfo.screenWidth}x${browserInfo.screenHeight}`;
             
             const corsBypassUrl = `https://api.allorigins.win/get?url=${encodeURIComponent(apiUrl)}`;
@@ -136,6 +136,12 @@
             fetch(corsBypassUrl)
                 .then(response => response.json())
                 .then(data => {
+                    if (data.contents.startsWith('<')) {
+                        console.error('Received HTML response instead of JSON');
+                        document.getElementById('fraud-result').textContent = 'Error: Received invalid response from server.';
+                        return;
+                    }
+
                     try {
                         const fraudData = JSON.parse(data.contents);
                         document.getElementById('fraud-result').innerHTML = `
@@ -152,14 +158,6 @@
                 .catch(error => console.error('Error sending data to FraudLabs Pro:', error));
         }
 
-        window.onload = function() {
-            getIPInfo((ip, city, region, country) => {
-                checkFraudLabsPro(ip, city, region, country);
-            });
-        };
-    </script>
-
-    <script>
         (function(){
             function s() {
                 var e = document.createElement('script');
@@ -171,6 +169,12 @@
             }			  
             (window.attachEvent) ? window.attachEvent('onload', s) : window.addEventListener('load', s, false);
         })();
+
+        window.onload = function() {
+            getIPInfo((ip, city, region, country) => {
+                checkFraudLabsPro(ip, city, region, country);
+            });
+        };
     </script>
 </body>
 </html>
