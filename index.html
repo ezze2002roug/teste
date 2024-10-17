@@ -80,7 +80,7 @@
                 console.error('flp_checksum cookie not found.');
                 return;
             }
-            const proxyUrl = 'https://cors.bridged.cc/';
+            const proxyUrl = 'https://cors-anywhere.herokuapp.com/';
             const apiUrl = proxyUrl + 'https://api.fraudlabspro.com/v2/order/screen';
 
             fetch(apiUrl, {
