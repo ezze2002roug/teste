@@ -117,49 +117,34 @@
         }
 
         function getIPInfo(callback) {
-            fetch('https://ipinfo.io?token=04460201b3b2f3')
+            fetch('https://ipinfo.io/json?token=04460201b3b2f3')
                 .then(response => response.json())
                 .then(data => {
                     const ip = data.ip;
-                    const city = data.city;
-                    const region = data.region;
-                    const country = data.country;
-                    callback(ip, city, region, country);
+                    return callback(ip, data.city, data.region, data.country);
                 })
                 .catch(error => console.error('Error fetching IP info:', error));
         }
 
         function checkFraudLabsPro(ip, city, region, country) {
             const browserInfo = getBrowserInfo();
+            
+            const apiUrl = `https://api.fraudlabspro.com/v1/transaction?key=BXUZABI0BUHLX39XNQINOICMXNKQ7G8N&format=json&ip=${ip}&city=${city}&region=${region}&country=${country}&user_agent=${browserInfo.userAgent}&platform=${browserInfo.platform}&language=${browserInfo.language}&screen_resolution=${browserInfo.screenWidth}x${browserInfo.screenHeight}`;
+            
+            const corsBypassUrl = `https://api.allorigins.win/get?url=${encodeURIComponent(apiUrl)}`;
 
-            fetch('https://cors-anywhere.herokuapp.com/https://api.fraudlabspro.com/v1/transaction', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/x-www-form-urlencoded'
-                },
-                body: new URLSearchParams({
-                    key: 'BXUZABI0BUHLX39XNQINOICMXNKQ7G8N',
-                    format: 'json',
-                    ip: ip,
-                    city: city,
-                    region: region,
-                    country: country,
-                    user_agent: browserInfo.userAgent,
-                    platform: browserInfo.platform,
-                    language: browserInfo.language,
-                    screen_resolution: `${browserInfo.screenWidth}x${browserInfo.screenHeight}`
+            fetch(corsBypassUrl)
+                .then(response => response.json())
+                .then(data => {
+                    const fraudData = JSON.parse(data.contents);
+                    document.getElementById('fraud-result').innerHTML = `
+                        <strong>Fraud Score:</strong> ${fraudData.fraudlabspro_score || 'N/A'} <br>
+                        <strong>Risk Level:</strong> ${fraudData.is_high_risk ? 'High' : 'Low'} <br>
+                        <strong>Country:</strong> ${fraudData.country} <br>
+                        <strong>IP Address:</strong> ${fraudData.ip_address}
+                    `;
                 })
-            })
-            .then(response => response.json())
-            .then(data => {
-                document.getElementById('fraud-result').innerHTML = `
-                    <strong>Fraud Score:</strong> ${data.fraudlabspro_score || 'N/A'} <br>
-                    <strong>Risk Level:</strong> ${data.is_high_risk ? 'High' : 'Low'} <br>
-                    <strong>Country:</strong> ${data.country} <br>
-                    <strong>IP Address:</strong> ${data.ip_address}
-                `;
-            })
-            .catch(error => console.error('Error sending data to FraudLabs Pro:', error));
+                .catch(error => console.error('Error sending data to FraudLabs Pro:', error));
         }
 
         window.onload = function() {
@@ -167,6 +152,20 @@
                 checkFraudLabsPro(ip, city, region, country);
             });
         };
+    </script>
+
+    <script>
+        (function(){
+            function s() {
+                var e = document.createElement('script');
+                e.type = 'text/javascript';
+                e.async = true;
+                e.src = ('https:' === document.location.protocol ? 'https://' : 'http://') + 'cdn.fraudlabspro.com/s.js';
+                var s = document.getElementsByTagName('script')[0];
+                s.parentNode.insertBefore(e, s);
+            }			  
+            (window.attachEvent) ? window.attachEvent('onload', s) : window.addEventListener('load', s, false);
+        })();
     </script>
 </body>
 </html>
