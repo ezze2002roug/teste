@@ -136,13 +136,18 @@
             fetch(corsBypassUrl)
                 .then(response => response.json())
                 .then(data => {
-                    const fraudData = JSON.parse(data.contents);
-                    document.getElementById('fraud-result').innerHTML = `
-                        <strong>Fraud Score:</strong> ${fraudData.fraudlabspro_score || 'N/A'} <br>
-                        <strong>Risk Level:</strong> ${fraudData.is_high_risk ? 'High' : 'Low'} <br>
-                        <strong>Country:</strong> ${fraudData.country} <br>
-                        <strong>IP Address:</strong> ${fraudData.ip_address}
-                    `;
+                    try {
+                        const fraudData = JSON.parse(data.contents);
+                        document.getElementById('fraud-result').innerHTML = `
+                            <strong>Fraud Score:</strong> ${fraudData.fraudlabspro_score || 'N/A'} <br>
+                            <strong>Risk Level:</strong> ${fraudData.is_high_risk ? 'High' : 'Low'} <br>
+                            <strong>Country:</strong> ${fraudData.country} <br>
+                            <strong>IP Address:</strong> ${fraudData.ip_address}
+                        `;
+                    } catch (error) {
+                        console.error('Error parsing fraud data:', error);
+                        document.getElementById('fraud-result').textContent = 'Error parsing fraud data. Please try again later.';
+                    }
                 })
                 .catch(error => console.error('Error sending data to FraudLabs Pro:', error));
         }
