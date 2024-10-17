@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ar">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -117,25 +117,35 @@
 
     <script>
         window.onload = function() {
+            console.log("Window loaded");
             var cookieConsent = document.getElementById('cookieConsent');
             var acceptedCookies = localStorage.getItem('cookiesAccepted');
             if (!acceptedCookies) {
+                console.log("Cookies not accepted, showing consent");
                 cookieConsent.style.display = 'block';
             }
         };
 
         document.getElementById('acceptCookies').onclick = function() {
+            console.log("Cookies accepted");
             localStorage.setItem('cookiesAccepted', 'true');
             document.getElementById('cookieConsent').style.display = 'none';
             loadMaxMindScript();
         };
 
         function loadMaxMindScript() {
+            console.log("Loading MaxMind script");
             var mmapiws = window.__mmapiws = window.__mmapiws || {};
             mmapiws.accountId = "1069808"; 
             var element = document.createElement('script');
             element.async = true;
             element.src = 'https://device.maxmind.com/js/device.js';
+            element.onload = function() {
+                console.log("MaxMind script loaded successfully");
+            };
+            element.onerror = function() {
+                console.log("Error loading MaxMind script");
+            };
             document.body.appendChild(element);
         }
     </script>
