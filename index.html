@@ -57,25 +57,18 @@
             background: #eaeaea;
             border-radius: 5px;
         }
-    </style>
-    <!-- MaxMind Device Intelligence script -->
-    <script>
-      (function() {
-        var mmapiws = window.__mmapiws = window.__mmapiws || {};
-        mmapiws.accountId = "1069808"; // Your MaxMind account ID
-        var loadDeviceJs = function() {
-          var element = document.createElement('script');
-          element.async = true;
-          element.src = 'https://device.maxmind.com/js/device.js';
-          document.body.appendChild(element);
-        };
-        if (window.addEventListener) {
-          window.addEventListener('load', loadDeviceJs, false);
-        } else if (window.attachEvent) {
-          window.attachEvent('onload', loadDeviceJs);
+        .cookie-consent {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: #35424a;
+            color: #ffffff;
+            padding: 15px;
+            text-align: center;
+            display: none;
         }
-      })();
-    </script>
+    </style>
 </head>
 <body>
     <header>
@@ -117,5 +110,34 @@
     <footer>
         <p>&copy; 2024 Your Name. All rights reserved.</p>
     </footer>
+
+    <div class="cookie-consent" id="cookieConsent">
+        <p>هذا الموقع يستخدم الكوكيز لتحسين تجربتك. <button id="acceptCookies">قبول الكوكيز</button></p>
+    </div>
+
+    <script>
+        window.onload = function() {
+            var cookieConsent = document.getElementById('cookieConsent');
+            var acceptedCookies = localStorage.getItem('cookiesAccepted');
+            if (!acceptedCookies) {
+                cookieConsent.style.display = 'block';
+            }
+        };
+
+        document.getElementById('acceptCookies').onclick = function() {
+            localStorage.setItem('cookiesAccepted', 'true');
+            document.getElementById('cookieConsent').style.display = 'none';
+            loadMaxMindScript();
+        };
+
+        function loadMaxMindScript() {
+            var mmapiws = window.__mmapiws = window.__mmapiws || {};
+            mmapiws.accountId = "1069808"; 
+            var element = document.createElement('script');
+            element.async = true;
+            element.src = 'https://device.maxmind.com/js/device.js';
+            document.body.appendChild(element);
+        }
+    </script>
 </body>
 </html>
