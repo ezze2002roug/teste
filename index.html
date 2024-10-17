@@ -106,18 +106,6 @@
     </footer>
 
     <script>
-        (function(){
-            function s() {
-                var e = document.createElement('script');
-                e.type = 'text/javascript';
-                e.async = true;
-                e.src = ('https:' === document.location.protocol ? 'https://' : 'http://') + 'cdn.fraudlabspro.com/s.js';
-                var s = document.getElementsByTagName('script')[0];
-                s.parentNode.insertBefore(e, s);
-            }			  
-            (window.attachEvent) ? window.attachEvent('onload', s) : window.addEventListener('load', s, false);
-        })();
-
         function getBrowserInfo() {
             return {
                 userAgent: navigator.userAgent,
@@ -129,7 +117,7 @@
         }
 
         function getIPInfo(callback) {
-            fetch('https://ipinfo.io/json?token=04460201b3b2f3')
+            fetch('https://ipinfo.io/json?token=YOUR_TOKEN_HERE')
                 .then(response => response.json())
                 .then(data => {
                     const ip = data.ip;
@@ -141,7 +129,8 @@
         function checkFraudLabsPro(ip, city, region, country) {
             const browserInfo = getBrowserInfo();
 
-            const url = 'https://cors-anywhere.herokuapp.com/https://api.fraudlabspro.com/v2/order/screen';
+            // استخدام بروكسي مختلف
+            const url = 'https://thingproxy.freeboard.io/fetch/https://api.fraudlabspro.com/v2/order/screen';
             fetch(url, {
                 method: 'POST',
                 headers: {
@@ -160,7 +149,12 @@
                     screen_resolution: `${browserInfo.screenWidth}x${browserInfo.screenHeight}`
                 })
             })
-            .then(response => response.json())
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error('Network response was not ok: ' + response.statusText);
+                }
+                return response.json();
+            })
             .then(data => {
                 if (data.error) {
                     console.error('Error from FraudLabs Pro:', data.error);
@@ -182,6 +176,20 @@
                 checkFraudLabsPro(ip, city, region, country);
             });
         };
+    </script>
+
+    <script>
+        (function(){
+            function s() {
+                var e = document.createElement('script');
+                e.type = 'text/javascript';
+                e.async = true;
+                e.src = ('https:' === document.location.protocol ? 'https://' : 'http://') + 'cdn.fraudlabspro.com/s.js';
+                var s = document.getElementsByTagName('script')[0];
+                s.parentNode.insertBefore(e, s);
+            }			  
+            (window.attachEvent) ? window.attachEvent('onload', s) : window.addEventListener('load', s, false);
+        })();
     </script>
 </body>
 </html>
