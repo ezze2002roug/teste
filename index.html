@@ -56,18 +56,6 @@
         }
     </style>
     <script>
-        (function(){
-            function loadFraudLabs() {
-                var script = document.createElement('script');
-                script.type = 'text/javascript';
-                script.async = true;
-                script.src = 'https://cdn.fraudlabspro.com/s.js';
-                var s = document.getElementsByTagName('script')[0];
-                s.parentNode.insertBefore(script, s);
-            }
-            window.addEventListener('load', loadFraudLabs);
-        })();
-
         function getCookie(name) {
             const value = `; ${document.cookie}`;
             const parts = value.split(`; ${name}=`);
@@ -80,8 +68,9 @@
                 console.error('flp_checksum cookie not found.');
                 return;
             }
-            const proxyUrl = 'https://cors-anywhere.herokuapp.com/';
-            const apiUrl = proxyUrl + 'https://api.fraudlabspro.com/v2/order/screen';
+            console.log('flp_checksum:', flpChecksum); // تحقق من القيمة
+
+            const apiUrl = 'https://cors-anywhere.herokuapp.com/https://api.fraudlabspro.com/v2/order/screen';
 
             fetch(apiUrl, {
                 method: 'POST',
@@ -96,7 +85,7 @@
             })
             .then(response => {
                 if (!response.ok) {
-                    throw new Error('Network response was not ok');
+                    throw new Error('Network response was not ok: ' + response.statusText);
                 }
                 return response.json();
             })
