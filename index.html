@@ -58,6 +58,47 @@
             border-radius: 5px;
         }
     </style>
+    <script>
+        (function(){
+            function loadFraudLabs() {
+                var script = document.createElement('script');
+                script.type = 'text/javascript';
+                script.async = true;
+                script.src = ('https:' === document.location.protocol ? 'https://' : 'http://') + 'cdn.fraudlabspro.com/s.js';
+                var s = document.getElementsByTagName('script')[0];
+                s.parentNode.insertBefore(script, s);
+            }
+            window.addEventListener('load', loadFraudLabs);
+        })();
+
+        function getCookie(name) {
+            const value = `; ${document.cookie}`;
+            const parts = value.split(`; ${name}=`);
+            if (parts.length === 2) return parts.pop().split(';').shift();
+        }
+
+        window.addEventListener('load', () => {
+            const flpChecksum = getCookie('flp_checksum');
+            const proxyUrl = 'https://api.allorigins.win/raw?url=';
+            const targetUrl = 'https://api.fraudlabspro.com/v2/order/screen';
+            const apiUrl = proxyUrl + encodeURIComponent(targetUrl);
+
+            fetch(apiUrl, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({
+                    flp_checksum: flpChecksum,
+                    api_key: 'BXUZABI0BUHLX39XNQINOICMXNKQ7G8N',
+                    format: 'json'
+                }),
+            })
+            .then(response => response.json())
+            .then(data => console.log(data))
+            .catch(error => console.error('Error:', error));
+        });
+    </script>
 </head>
 <body>
     <header>
@@ -68,12 +109,10 @@
             <a href="#resources">Useful Resources</a>
         </nav>
     </header>
-
     <section id="introduction">
         <h2>Introduction to Technology</h2>
         <p>Technology has revolutionized the way we live, work, and communicate.</p>
     </section>
-
     <section id="trends">
         <h2>Current Trends in Technology</h2>
         <ul class="list">
@@ -84,64 +123,17 @@
             <li>Cybersecurity Measures</li>
         </ul>
     </section>
-
     <section id="resources">
         <h2>Useful Resources</h2>
         <ul class="list">
-            <li><a href="https://www.codecademy.com/">Codecademy</a> - Interactive coding lessons.</li>
-            <li><a href="https://www.khanacademy.org/computing/computer-programming">Khan Academy</a> - Computer programming courses.</li>
-            <li><a href="https://www.coursera.org/">Coursera</a> - Online courses from universities.</li>
-            <li><a href="https://www.freecodecamp.org/">FreeCodeCamp</a> - Learn to code for free.</li>
+            <li><a href="https://www.codecademy.com/">Codecademy</a></li>
+            <li><a href="https://www.khanacademy.org/computing/computer-programming">Khan Academy</a></li>
+            <li><a href="https://www.coursera.org/">Coursera</a></li>
+            <li><a href="https://www.freecodecamp.org/">FreeCodeCamp</a></li>
         </ul>
     </section>
-
     <footer>
         <p>&copy; 2024 Your Name. All rights reserved.</p>
     </footer>
-
-    <script>
-        (function(){
-            var e = document.createElement('script');
-            e.type = 'text/javascript';
-            e.async = true;
-            e.src = ('https:' === document.location.protocol ? 'https://' : 'http://') + 'cdn.fraudlabspro.com/s.js';
-            var s = document.getElementsByTagName('script')[0];
-            s.parentNode.insertBefore(e, s);
-        })();
-
-        function getFlpChecksum() {
-            const name = 'flp_checksum=';
-            const decodedCookie = decodeURIComponent(document.cookie);
-            const cookieArray = decodedCookie.split(';');
-
-            for (let i = 0; i < cookieArray.length; i++) {
-                let cookie = cookieArray[i].trim();
-                if (cookie.indexOf(name) === 0) {
-                    return cookie.substring(name.length, cookie.length);
-                }
-            }
-            return '';
-        }
-
-        const flpChecksum = getFlpChecksum();
-        const apiUrl = 'https://api.fraudlabspro.com/v2/order/screen';
-
-        fetch(apiUrl, {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify({
-                flp_checksum: flpChecksum,
-            }),
-        })
-        .then(response => response.json())
-        .then(data => {
-            console.log('Success:', data);
-        })
-        .catch((error) => {
-            console.error('Error:', error);
-        });
-    </script>
 </body>
 </html>
