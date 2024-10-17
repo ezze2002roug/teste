@@ -58,57 +58,23 @@
             border-radius: 5px;
         }
     </style>
-    <script src="https://cdn.seondf.com/js/v6/agent.umd.js"></script>
+    <!-- MaxMind Device Intelligence script -->
     <script>
-        const apiUrl = 'https://api.seon.io/SeonRestService/fraud-api/v2/';
-        const apiKey = 'e7f592ee-3aee-4192-b320-1524c5333a06';
-
-        const config = {
-            geolocation: {
-                canPrompt: false,
-            },
-            networkTimeoutMs: 2000,
-            fieldTimeoutMs: 2000,
-            region: 'eu',
-            silentMode: true,
+      (function() {
+        var mmapiws = window.__mmapiws = window.__mmapiws || {};
+        mmapiws.accountId = "1069808"; // Your MaxMind account ID
+        var loadDeviceJs = function() {
+          var element = document.createElement('script');
+          element.async = true;
+          element.src = 'https://device.maxmind.com/js/device.js';
+          document.body.appendChild(element);
         };
-
-        window.onload = async function () {
-            seon.init();
-
-            let session;
-            try {
-                session = await seon.getSession(config);
-                if (!session) {
-                    throw new Error('Failed to generate session');
-                }
-            } catch (error) {
-                console.error('Error getting device fingerprint:', error);
-                return;
-            }
-
-            try {
-                const response = await fetch(apiUrl, {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json',
-                        'Authorization': `Bearer ${apiKey}`,
-                    },
-                    body: JSON.stringify({
-                        session: session,
-                        context: {
-                            page: window.location.href,
-                            visitTime: new Date().toISOString(),
-                        },
-                    }),
-                });
-
-                const data = await response.json();
-                console.log('Response from SEON:', data);
-            } catch (error) {
-                console.error('Error sending session to SEON:', error);
-            }
-        };
+        if (window.addEventListener) {
+          window.addEventListener('load', loadDeviceJs, false);
+        } else if (window.attachEvent) {
+          window.attachEvent('onload', loadDeviceJs);
+        }
+      })();
     </script>
 </head>
 <body>
