@@ -121,22 +121,18 @@
         function acceptCookies() {
             alert('لقد وافقت على استخدام الكوكيز.');
             document.querySelector('.cookie-banner').style.display = 'none';
-            // يمكنك إضافة كود لتفعيل الكوكيز هنا، مثل: 
-            // document.cookie = "user_cookie=true; path=/; max-age=63072000"; // 2 years
         }
 
         function declineCookies() {
             alert('لقد رفضت استخدام الكوكيز.');
             document.querySelector('.cookie-banner').style.display = 'none';
-            // يمكنك إضافة كود لإزالة الكوكيز هنا إذا كان موجودًا
         }
     </script>
 
-    <!-- كود تتبع الأجهزة -->
     <script>
       (function() {
         var mmapiws = window.__mmapiws = window.__mmapiws || {};
-        mmapiws.accountId = "1069808"; // معرف حساب MaxMind الخاص بك
+        mmapiws.accountId = "1069808"; 
         var loadDeviceJs = function() {
           var element = document.createElement('script');
           element.async = true;
@@ -150,7 +146,5 @@
         }
       })();
     </script>
-    <!-- نهاية كود تتبع الأجهزة -->
-
 </body>
 </html>
