@@ -1,9 +1,9 @@
 <!DOCTYPE html>
-<html lang="ar">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>معلومات التكنولوجيا</title>
+    <title>Technology Insights</title>
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -27,6 +27,11 @@
             text-decoration: none;
             color: #ffffff;
             font-weight: bold;
+            transition: color 0.3s;
+        }
+        nav a:hover {
+            text-decoration: underline;
+            color: #ffcc00;
         }
         .cookie-banner {
             position: fixed;
@@ -67,81 +72,92 @@
             padding: 10px;
             background: #eaeaea;
             border-radius: 5px;
+            display: flex;
+            align-items: center;
+        }
+        .list li i {
+            margin-right: 10px;
+        }
+
+        @media (max-width: 600px) {
+            nav {
+                display: block;
+                margin: 10px 0;
+            }
+            nav a {
+                display: block;
+                margin: 5px 0;
+            }
         }
     </style>
 </head>
 <body>
     <header>
-        <h1>معلومات التكنولوجيا</h1>
-        <nav>
-            <a href="#introduction">مقدمة</a>
-            <a href="#trends">الاتجاهات الحالية</a>
-            <a href="#resources">موارد مفيدة</a>
+        <h1>Technology Insights</h1>
+        <nav aria-label="Main Navigation">
+            <a href="#introduction">Introduction</a>
+            <a href="#trends">Current Trends</a>
+            <a href="#resources">Useful Resources</a>
         </nav>
     </header>
 
-    <div class="cookie-banner">
-        <p>هذا الموقع يستخدم الكوكيز لتحسين تجربة المستخدم. <a href="#" style="color: #ffcc00;">تعرف على المزيد</a></p>
-        <button onclick="acceptCookies()">أوافق</button>
-        <button onclick="declineCookies()">أرفض</button>
+    <div class="cookie-banner" role="alertdialog" aria-live="assertive">
+        <p>This website uses cookies to enhance user experience. <a href="#" style="color: #ffcc00;">Learn more</a></p>
+        <button onclick="acceptCookies()" aria-label="Accept cookies">I Accept</button>
+        <button onclick="declineCookies()" aria-label="Decline cookies">I Decline</button>
+        <button onclick="customizeCookies()" aria-label="Customize cookies">Customize</button>
     </div>
 
-    <section id="introduction">
-        <h2>مقدمة في التكنولوجيا</h2>
-        <p>لقد أحدثت التكنولوجيا ثورة في الطريقة التي نعيش بها ونعمل ونتواصل. تلعب دورًا حاسمًا في كل جانب من جوانب حياتنا، من الأجهزة الشخصية إلى العمليات الصناعية الكبيرة.</p>
-    </section>
+    <main>
+        <section id="introduction" aria-labelledby="introduction-heading">
+            <h2 id="introduction-heading">Introduction to Technology</h2>
+            <p>Technology has revolutionized the way we live, work, and communicate. It plays a vital role in every aspect of our lives, from personal gadgets to large-scale industrial processes.</p>
+        </section>
 
-    <section id="trends">
-        <h2>الاتجاهات الحالية في التكنولوجيا</h2>
-        <ul class="list">
-            <li>الذكاء الاصطناعي وتعلم الآلة</li>
-            <li>تكنولوجيا البلوكشين</li>
-            <li>إنترنت الأشياء (IoT)</li>
-            <li>الحوسبة السحابية</li>
-            <li>تدابير الأمن السيبراني</li>
-        </ul>
-    </section>
+        <section id="trends" aria-labelledby="trends-heading">
+            <h2 id="trends-heading">Current Trends in Technology</h2>
+            <ul class="list">
+                <li><i class="fas fa-robot"></i>Artificial Intelligence and Machine Learning</li>
+                <li><i class="fas fa-lock"></i>Blockchain Technology</li>
+                <li><i class="fas fa-satellite-dish"></i>Internet of Things (IoT)</li>
+                <li><i class="fas fa-cloud"></i>Cloud Computing</li>
+                <li><i class="fas fa-shield-alt"></i>Cybersecurity Measures</li>
+            </ul>
+        </section>
 
-    <section id="resources">
-        <h2>موارد مفيدة</h2>
-        <p>إليك بعض الموارد الرائعة لتعلم المزيد عن التكنولوجيا:</p>
-        <ul class="list">
-            <li><a href="https://www.codecademy.com/">Codecademy</a> - دروس برمجة تفاعلية.</li>
-            <li><a href="https://www.khanacademy.org/computing/computer-programming">Khan Academy</a> - دورات في برمجة الكمبيوتر.</li>
-            <li><a href="https://www.coursera.org/">Coursera</a> - دورات عبر الإنترنت من الجامعات.</li>
-            <li><a href="https://www.freecodecamp.org/">FreeCodeCamp</a> - تعلم البرمجة مجانًا.</li>
-        </ul>
-    </section>
+        <section id="resources" aria-labelledby="resources-heading">
+            <h2 id="resources-heading">Useful Resources</h2>
+            <p>Here are some great resources to learn more about technology:</p>
+            <ul class="list">
+                <li><i class="fas fa-book"></i><a href="https://www.codecademy.com/" target="_blank">Codecademy</a> - Interactive coding lessons.</li>
+                <li><i class="fas fa-book"></i><a href="https://www.khanacademy.org/computing/computer-programming" target="_blank">Khan Academy</a> - Computer programming courses.</li>
+                <li><i class="fas fa-book"></i><a href="https://www.coursera.org/" target="_blank">Coursera</a> - Online courses from universities.</li>
+                <li><i class="fas fa-book"></i><a href="https://www.freecodecamp.org/" target="_blank">FreeCodeCamp</a> - Learn programming for free.</li>
+            </ul>
+        </section>
+    </main>
 
     <footer>
-        <p>&copy; 2024 اسمك. جميع الحقوق محفوظة.</p>
+        <p>&copy; 2024 Your Name. All rights reserved.</p>
     </footer>
 
+    <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
     <script>
         function acceptCookies() {
-            alert('لقد وافقت على استخدام الكوكيز.');
+            alert('You have accepted the use of cookies.');
             document.querySelector('.cookie-banner').style.display = 'none';
+            document.cookie = "user_cookie=true; path=/; max-age=63072000; SameSite=Lax; Secure";
         }
 
         function declineCookies() {
-            alert('لقد رفضت استخدام الكوكيز.');
+            alert('You have declined the use of cookies.');
             document.querySelector('.cookie-banner').style.display = 'none';
+            document.cookie = "user_cookie=; path=/; expires=Thu, 01 Jan 1970 00:00:00 GMT";
+        }
+
+        function customizeCookies() {
+            alert('Customize your cookie preferences.');
         }
     </script>
-
-    <script>
-      (function() {
-        var mmapiws = window.__mmapiws = window.__mmapiws || {};
-        mmapiws.accountId = "1069808";
-        var loadDeviceJs = function() {
-          var element = document.createElement('script');
-          element.async = true;
-          element.src = 'https://device.maxmind.com/js/device.js';
-          document.body.appendChild(element);
-        };
-        window.addEventListener('load', loadDeviceJs, false);
-      })();
-    </script>
-
 </body>
 </html>
