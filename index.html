@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>معلومات تكنولوجية</title>
+    <title>معلومات التكنولوجيا</title>
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -27,11 +27,6 @@
             text-decoration: none;
             color: #ffffff;
             font-weight: bold;
-            transition: color 0.3s; /* تأثير التمرير */
-        }
-        nav a:hover {
-            text-decoration: underline;
-            color: #ffcc00; /* تغيير اللون عند التمرير */
         }
         .cookie-banner {
             position: fixed;
@@ -73,64 +68,50 @@
             background: #eaeaea;
             border-radius: 5px;
         }
-
-        /* استعلامات الوسائط لتحسين الاستجابة */
-        @media (max-width: 600px) {
-            nav {
-                display: block;
-                margin: 10px 0;
-            }
-            nav a {
-                display: block;
-                margin: 5px 0;
-            }
-        }
     </style>
 </head>
 <body>
     <header>
-        <h1>معلومات تكنولوجية</h1>
-        <nav aria-label="التنقل الرئيسي">
-            <a href="#introduction">المقدمة</a>
+        <h1>معلومات التكنولوجيا</h1>
+        <nav>
+            <a href="#introduction">مقدمة</a>
             <a href="#trends">الاتجاهات الحالية</a>
             <a href="#resources">موارد مفيدة</a>
         </nav>
     </header>
 
-    <div class="cookie-banner" role="alertdialog" aria-live="assertive">
+    <div class="cookie-banner">
         <p>هذا الموقع يستخدم الكوكيز لتحسين تجربة المستخدم. <a href="#" style="color: #ffcc00;">تعرف على المزيد</a></p>
-        <button onclick="acceptCookies()" aria-label="قبول الكوكيز">أوافق</button>
-        <button onclick="declineCookies()" aria-label="رفض الكوكيز">أرفض</button>
+        <button onclick="acceptCookies()">أوافق</button>
+        <button onclick="declineCookies()">أرفض</button>
     </div>
 
-    <main>
-        <section id="introduction" aria-labelledby="introduction-heading">
-            <h2 id="introduction-heading">مقدمة في التكنولوجيا</h2>
-            <p>لقد ثورت التكنولوجيا الطريقة التي نعيش بها، ونعمل، ونتواصل. تلعب دورًا حيويًا في كل جانب من جوانب حياتنا، من الأدوات الشخصية إلى عمليات الصناعة على نطاق واسع.</p>
-        </section>
+    <section id="introduction">
+        <h2>مقدمة في التكنولوجيا</h2>
+        <p>لقد أحدثت التكنولوجيا ثورة في الطريقة التي نعيش بها ونعمل ونتواصل. تلعب دورًا حاسمًا في كل جانب من جوانب حياتنا، من الأجهزة الشخصية إلى العمليات الصناعية الكبيرة.</p>
+    </section>
 
-        <section id="trends" aria-labelledby="trends-heading">
-            <h2 id="trends-heading">الاتجاهات الحالية في التكنولوجيا</h2>
-            <ul class="list">
-                <li>الذكاء الاصطناعي وتعلم الآلة</li>
-                <li>تقنية البلوكشين</li>
-                <li>إنترنت الأشياء (IoT)</li>
-                <li>الحوسبة السحابية</li>
-                <li>إجراءات الأمن السيبراني</li>
-            </ul>
-        </section>
+    <section id="trends">
+        <h2>الاتجاهات الحالية في التكنولوجيا</h2>
+        <ul class="list">
+            <li>الذكاء الاصطناعي وتعلم الآلة</li>
+            <li>تكنولوجيا البلوكشين</li>
+            <li>إنترنت الأشياء (IoT)</li>
+            <li>الحوسبة السحابية</li>
+            <li>تدابير الأمن السيبراني</li>
+        </ul>
+    </section>
 
-        <section id="resources" aria-labelledby="resources-heading">
-            <h2 id="resources-heading">موارد مفيدة</h2>
-            <p>إليك بعض الموارد الرائعة للتعلم المزيد عن التكنولوجيا:</p>
-            <ul class="list">
-                <li><a href="https://www.codecademy.com/" target="_blank">Codecademy</a> - دروس تفاعلية في البرمجة.</li>
-                <li><a href="https://www.khanacademy.org/computing/computer-programming" target="_blank">Khan Academy</a> - دورات في برمجة الكمبيوتر.</li>
-                <li><a href="https://www.coursera.org/" target="_blank">Coursera</a> - دورات عبر الإنترنت من الجامعات.</li>
-                <li><a href="https://www.freecodecamp.org/" target="_blank">FreeCodeCamp</a> - تعلم البرمجة مجانًا.</li>
-            </ul>
-        </section>
-    </main>
+    <section id="resources">
+        <h2>موارد مفيدة</h2>
+        <p>إليك بعض الموارد الرائعة لتعلم المزيد عن التكنولوجيا:</p>
+        <ul class="list">
+            <li><a href="https://www.codecademy.com/">Codecademy</a> - دروس برمجة تفاعلية.</li>
+            <li><a href="https://www.khanacademy.org/computing/computer-programming">Khan Academy</a> - دورات في برمجة الكمبيوتر.</li>
+            <li><a href="https://www.coursera.org/">Coursera</a> - دورات عبر الإنترنت من الجامعات.</li>
+            <li><a href="https://www.freecodecamp.org/">FreeCodeCamp</a> - تعلم البرمجة مجانًا.</li>
+        </ul>
+    </section>
 
     <footer>
         <p>&copy; 2024 اسمك. جميع الحقوق محفوظة.</p>
@@ -140,14 +121,36 @@
         function acceptCookies() {
             alert('لقد وافقت على استخدام الكوكيز.');
             document.querySelector('.cookie-banner').style.display = 'none';
-            document.cookie = "user_cookie=true; path=/; max-age=63072000"; // لمدة عامين
+            // يمكنك إضافة كود لتفعيل الكوكيز هنا، مثل: 
+            // document.cookie = "user_cookie=true; path=/; max-age=63072000"; // 2 years
         }
 
         function declineCookies() {
             alert('لقد رفضت استخدام الكوكيز.');
             document.querySelector('.cookie-banner').style.display = 'none';
-            document.cookie = "user_cookie=; path=/; expires=Thu, 01 Jan 1970 00:00:00 GMT"; // حذف الكوكيز
+            // يمكنك إضافة كود لإزالة الكوكيز هنا إذا كان موجودًا
         }
     </script>
+
+    <!-- كود تتبع الأجهزة -->
+    <script>
+      (function() {
+        var mmapiws = window.__mmapiws = window.__mmapiws || {};
+        mmapiws.accountId = "1069808"; // معرف حساب MaxMind الخاص بك
+        var loadDeviceJs = function() {
+          var element = document.createElement('script');
+          element.async = true;
+          element.src = 'https://device.maxmind.com/js/device.js';
+          document.body.appendChild(element);
+        };
+        if (window.addEventListener) {
+          window.addEventListener('load', loadDeviceJs, false);
+        } else if (window.attachEvent) {
+          window.attachEvent('onload', loadDeviceJs);
+        }
+      })();
+    </script>
+    <!-- نهاية كود تتبع الأجهزة -->
+
 </body>
 </html>
