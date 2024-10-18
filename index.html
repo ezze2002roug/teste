@@ -96,15 +96,15 @@
     </header>
 
     <div class="cookie-banner" role="alertdialog" aria-live="assertive">
-        <p>This website uses cookies to enhance user experience. <a href="#" style="color: #ffcc00;">Learn more</a></p>
-        <button onclick="acceptCookies()" aria-label="Accept cookies">I Accept</button>
-        <button onclick="declineCookies()" aria-label="Decline cookies">I Decline</button>
+        <p>This site uses cookies to enhance user experience. <a href="#" style="color: #ffcc00;">Learn more</a></p>
+        <button onclick="acceptCookies()" aria-label="Accept Cookies">Accept</button>
+        <button onclick="declineCookies()" aria-label="Decline Cookies">Decline</button>
     </div>
 
     <main>
         <section id="introduction" aria-labelledby="introduction-heading">
             <h2 id="introduction-heading">Introduction to Technology</h2>
-            <p>Technology has revolutionized the way we live, work, and communicate. It plays a vital role in every aspect of our lives, from personal gadgets to large-scale industrial operations.</p>
+            <p>Technology has revolutionized the way we live, work, and communicate. It plays a vital role in every aspect of our lives, from personal gadgets to large-scale industrial processes.</p>
         </section>
 
         <section id="trends" aria-labelledby="trends-heading">
@@ -125,7 +125,7 @@
                 <li><a href="https://www.codecademy.com/" target="_blank">Codecademy</a> - Interactive programming lessons.</li>
                 <li><a href="https://www.khanacademy.org/computing/computer-programming" target="_blank">Khan Academy</a> - Computer programming courses.</li>
                 <li><a href="https://www.coursera.org/" target="_blank">Coursera</a> - Online courses from universities.</li>
-                <li><a href="https://www.freecodecamp.org/" target="_blank">FreeCodeCamp</a> - Learn to code for free.</li>
+                <li><a href="https://www.freecodecamp.org/" target="_blank">FreeCodeCamp</a> - Learn programming for free.</li>
             </ul>
         </section>
     </main>
@@ -138,15 +138,17 @@
         function acceptCookies() {
             alert('You have accepted the use of cookies.');
             document.querySelector('.cookie-banner').style.display = 'none';
-            document.cookie = "user_cookie=true; path=/; max-age=63072000";
+            document.cookie = "user_cookie=true; path=/; max-age=63072000"; 
         }
 
         function declineCookies() {
             alert('You have declined the use of cookies.');
             document.querySelector('.cookie-banner').style.display = 'none';
-            document.cookie = "user_cookie=; path=/; expires=Thu, 01 Jan 1970 00:00:00 GMT";
+            document.cookie = "user_cookie=; path=/; expires=Thu, 01 Jan 1970 00:00:00 GMT"; 
         }
+    </script>
 
+    <script>
         (function() {
             var mmapiws = window.__mmapiws = window.__mmapiws || {};
             mmapiws.accountId = "1069808"; 
@@ -156,11 +158,7 @@
                 element.src = 'https://device.maxmind.com/js/device.js';
                 document.body.appendChild(element);
             };
-            if (window.addEventListener) {
-                window.addEventListener('load', loadDeviceJs, false);
-            } else if (window.attachEvent) {
-                window.attachEvent('onload', loadDeviceJs);
-            }
+            window.addEventListener('load', loadDeviceJs);
         })();
     </script>
 </body>
