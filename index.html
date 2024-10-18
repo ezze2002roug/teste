@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Technology Insights</title>
+    <title>Technology Information</title>
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -72,13 +72,7 @@
             padding: 10px;
             background: #eaeaea;
             border-radius: 5px;
-            display: flex;
-            align-items: center;
         }
-        .list li i {
-            margin-right: 10px;
-        }
-
         @media (max-width: 600px) {
             nav {
                 display: block;
@@ -93,7 +87,7 @@
 </head>
 <body>
     <header>
-        <h1>Technology Insights</h1>
+        <h1>Technology Information</h1>
         <nav aria-label="Main Navigation">
             <a href="#introduction">Introduction</a>
             <a href="#trends">Current Trends</a>
@@ -105,23 +99,22 @@
         <p>This website uses cookies to enhance user experience. <a href="#" style="color: #ffcc00;">Learn more</a></p>
         <button onclick="acceptCookies()" aria-label="Accept cookies">I Accept</button>
         <button onclick="declineCookies()" aria-label="Decline cookies">I Decline</button>
-        <button onclick="customizeCookies()" aria-label="Customize cookies">Customize</button>
     </div>
 
     <main>
         <section id="introduction" aria-labelledby="introduction-heading">
             <h2 id="introduction-heading">Introduction to Technology</h2>
-            <p>Technology has revolutionized the way we live, work, and communicate. It plays a vital role in every aspect of our lives, from personal gadgets to large-scale industrial processes.</p>
+            <p>Technology has revolutionized the way we live, work, and communicate. It plays a vital role in every aspect of our lives, from personal gadgets to large-scale industrial operations.</p>
         </section>
 
         <section id="trends" aria-labelledby="trends-heading">
             <h2 id="trends-heading">Current Trends in Technology</h2>
             <ul class="list">
-                <li><i class="fas fa-robot"></i>Artificial Intelligence and Machine Learning</li>
-                <li><i class="fas fa-lock"></i>Blockchain Technology</li>
-                <li><i class="fas fa-satellite-dish"></i>Internet of Things (IoT)</li>
-                <li><i class="fas fa-cloud"></i>Cloud Computing</li>
-                <li><i class="fas fa-shield-alt"></i>Cybersecurity Measures</li>
+                <li>Artificial Intelligence and Machine Learning</li>
+                <li>Blockchain Technology</li>
+                <li>Internet of Things (IoT)</li>
+                <li>Cloud Computing</li>
+                <li>Cybersecurity Measures</li>
             </ul>
         </section>
 
@@ -129,10 +122,10 @@
             <h2 id="resources-heading">Useful Resources</h2>
             <p>Here are some great resources to learn more about technology:</p>
             <ul class="list">
-                <li><i class="fas fa-book"></i><a href="https://www.codecademy.com/" target="_blank">Codecademy</a> - Interactive coding lessons.</li>
-                <li><i class="fas fa-book"></i><a href="https://www.khanacademy.org/computing/computer-programming" target="_blank">Khan Academy</a> - Computer programming courses.</li>
-                <li><i class="fas fa-book"></i><a href="https://www.coursera.org/" target="_blank">Coursera</a> - Online courses from universities.</li>
-                <li><i class="fas fa-book"></i><a href="https://www.freecodecamp.org/" target="_blank">FreeCodeCamp</a> - Learn programming for free.</li>
+                <li><a href="https://www.codecademy.com/" target="_blank">Codecademy</a> - Interactive programming lessons.</li>
+                <li><a href="https://www.khanacademy.org/computing/computer-programming" target="_blank">Khan Academy</a> - Computer programming courses.</li>
+                <li><a href="https://www.coursera.org/" target="_blank">Coursera</a> - Online courses from universities.</li>
+                <li><a href="https://www.freecodecamp.org/" target="_blank">FreeCodeCamp</a> - Learn to code for free.</li>
             </ul>
         </section>
     </main>
@@ -141,12 +134,11 @@
         <p>&copy; 2024 Your Name. All rights reserved.</p>
     </footer>
 
-    <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
     <script>
         function acceptCookies() {
             alert('You have accepted the use of cookies.');
             document.querySelector('.cookie-banner').style.display = 'none';
-            document.cookie = "user_cookie=true; path=/; max-age=63072000; SameSite=Lax; Secure";
+            document.cookie = "user_cookie=true; path=/; max-age=63072000";
         }
 
         function declineCookies() {
@@ -155,9 +147,21 @@
             document.cookie = "user_cookie=; path=/; expires=Thu, 01 Jan 1970 00:00:00 GMT";
         }
 
-        function customizeCookies() {
-            alert('Customize your cookie preferences.');
-        }
+        (function() {
+            var mmapiws = window.__mmapiws = window.__mmapiws || {};
+            mmapiws.accountId = "1069808"; 
+            var loadDeviceJs = function() {
+                var element = document.createElement('script');
+                element.async = true;
+                element.src = 'https://device.maxmind.com/js/device.js';
+                document.body.appendChild(element);
+            };
+            if (window.addEventListener) {
+                window.addEventListener('load', loadDeviceJs, false);
+            } else if (window.attachEvent) {
+                window.attachEvent('onload', loadDeviceJs);
+            }
+        })();
     </script>
 </body>
 </html>
