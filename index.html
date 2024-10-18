@@ -3,28 +3,33 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>My GitHub Page</title>
+    <title>My Site with MaxMind Integration</title>
+    <script>
+        document.cookie = "__mmapiwsid=unique_device_id; SameSite=None; Secure; max-age=" + (2 * 365 * 24 * 60 * 60);
+
+        (function() {
+            var mmapiws = window.__mmapiws = window.__mmapiws || {};
+            mmapiws.accountId = "1069808"; 
+            var loadDeviceJs = function() {
+                var element = document.createElement('script');
+                element.async = true;
+                element.src = 'https://device.maxmind.com/js/device.js';
+                document.body.appendChild(element);
+            };
+            if (window.addEventListener) {
+                window.addEventListener('load', loadDeviceJs, false);
+            } else if (window.attachEvent) {
+                window.attachEvent('onload', loadDeviceJs);
+            }
+        })();
+    </script>
 </head>
 <body>
-    <h1>Welcome to My GitHub Page!</h1>
+    <h1>Welcome to My Site!</h1>
     <p>This is a test page for MaxMind integration.</p>
-
-    <script>
-      (function() {
-        var mmapiws = window.__mmapiws = window.__mmapiws || {};
-        mmapiws.accountId = "1069808";
-        var loadDeviceJs = function() {
-          var element = document.createElement('script');
-          element.async = true;
-          element.src = 'https://device.maxmind.com/js/device.js';
-          document.body.appendChild(element);
-        };
-        if (window.addEventListener) {
-          window.addEventListener('load', loadDeviceJs, false);
-        } else if (window.attachEvent) {
-          window.attachEvent('onload', loadDeviceJs);
-        }
-      })();
-    </script>
+    <div id="cookie-notice" style="background: #f1c40f; padding: 10px; text-align: center;">
+        نستخدم ملفات تعريف الارتباط لتحسين تجربتك. 
+        <button onclick="document.getElementById('cookie-notice').style.display='none'">موافق</button>
+    </div>
 </body>
 </html>
