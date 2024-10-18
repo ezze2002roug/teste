@@ -3,33 +3,49 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>My Site with MaxMind Integration</title>
-    <script>
-        document.cookie = "__mmapiwsid=unique_device_id; SameSite=None; Secure; max-age=" + (2 * 365 * 24 * 60 * 60);
-
-        (function() {
-            var mmapiws = window.__mmapiws = window.__mmapiws || {};
-            mmapiws.accountId = "1069808"; 
-            var loadDeviceJs = function() {
-                var element = document.createElement('script');
-                element.async = true;
-                element.src = 'https://device.maxmind.com/js/device.js';
-                document.body.appendChild(element);
-            };
-            if (window.addEventListener) {
-                window.addEventListener('load', loadDeviceJs, false);
-            } else if (window.attachEvent) {
-                window.attachEvent('onload', loadDeviceJs);
-            }
-        })();
-    </script>
+    <title>Device Tracking</title>
 </head>
 <body>
-    <h1>Welcome to My Site!</h1>
-    <p>This is a test page for MaxMind integration.</p>
-    <div id="cookie-notice" style="background: #f1c40f; padding: 10px; text-align: center;">
-        نستخدم ملفات تعريف الارتباط لتحسين تجربتك. 
-        <button onclick="document.getElementById('cookie-notice').style.display='none'">موافق</button>
-    </div>
+    <h1>Welcome to Our Website</h1>
+    <p>This is your free GitHub site with device tracking integrated.</p>
+
+    <h2>Privacy Policy</h2>
+    <p><strong>Use of Cookies and Local Storage</strong></p>
+    <p>We use cookies and local storage to enhance the user experience on our site.</p>
+    
+    <p><strong>What are Cookies?</strong></p>
+    <p>Cookies are small text files stored on a user's device when visiting the site.</p>
+
+    <p><strong>How Do We Use Cookies?</strong></p>
+    <p>We use cookies to identify unique devices and improve site performance.</p>
+
+    <p><strong>What is Local Storage?</strong></p>
+    <p>Local storage is a method of storing data in the user's browser without using cookies.</p>
+
+    <p><strong>Managing Cookies and Local Storage:</strong></p>
+    <p>You can control how cookies are used through your browser settings.</p>
+
+    <p><strong>Compliance with Laws:</strong></p>
+    <p>We comply with legal standards related to privacy, including the General Data Protection Regulation (GDPR).</p>
+
+    <p>If you have any questions about our cookie and local storage policy, please contact us.</p>
+
+    <script>
+      (function() {
+        var mmapiws = window.__mmapiws = window.__mmapiws || {};
+        mmapiws.accountId = "1069808";
+        var loadDeviceJs = function() {
+          var element = document.createElement('script');
+          element.async = true;
+          element.src = 'https://device.maxmind.com/js/device.js';
+          document.body.appendChild(element);
+        };
+        if (window.addEventListener) {
+          window.addEventListener('load', loadDeviceJs, false);
+        } else if (window.attachEvent) {
+          window.attachEvent('onload', loadDeviceJs);
+        }
+      })();
+    </script>
 </body>
 </html>
