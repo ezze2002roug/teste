@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Technology Information</title>
+    <title>معلومات تكنولوجية</title>
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -27,6 +27,22 @@
             text-decoration: none;
             color: #ffffff;
             font-weight: bold;
+            transition: color 0.3s; /* تأثير التمرير */
+        }
+        nav a:hover {
+            text-decoration: underline;
+            color: #ffcc00; /* تغيير اللون عند التمرير */
+        }
+        .cookie-banner {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background-color: #35424a;
+            color: white;
+            padding: 10px;
+            text-align: center;
+            z-index: 1000;
         }
         section {
             padding: 20px;
@@ -57,96 +73,80 @@
             background: #eaeaea;
             border-radius: 5px;
         }
-        .cookie-consent {
-            position: fixed;
-            bottom: 0;
-            left: 0;
-            right: 0;
-            background: #35424a;
-            color: #ffffff;
-            padding: 15px;
-            text-align: center;
-            display: none;
+
+        /* استعلامات الوسائط لتحسين الاستجابة */
+        @media (max-width: 600px) {
+            nav {
+                display: block;
+                margin: 10px 0;
+            }
+            nav a {
+                display: block;
+                margin: 5px 0;
+            }
         }
     </style>
 </head>
 <body>
     <header>
-        <h1>Technology Information</h1>
-        <nav>
-            <a href="#introduction">Introduction</a>
-            <a href="#trends">Current Trends</a>
-            <a href="#resources">Useful Resources</a>
+        <h1>معلومات تكنولوجية</h1>
+        <nav aria-label="التنقل الرئيسي">
+            <a href="#introduction">المقدمة</a>
+            <a href="#trends">الاتجاهات الحالية</a>
+            <a href="#resources">موارد مفيدة</a>
         </nav>
     </header>
 
-    <section id="introduction">
-        <h2>Introduction to Technology</h2>
-        <p>Technology has revolutionized the way we live, work, and communicate. It plays a crucial role in every aspect of our lives, from personal gadgets to large-scale industry operations.</p>
-    </section>
-
-    <section id="trends">
-        <h2>Current Trends in Technology</h2>
-        <ul class="list">
-            <li>Artificial Intelligence and Machine Learning</li>
-            <li>Blockchain Technology</li>
-            <li>Internet of Things (IoT)</li>
-            <li>Cloud Computing</li>
-            <li>Cybersecurity Measures</li>
-        </ul>
-    </section>
-
-    <section id="resources">
-        <h2>Useful Resources</h2>
-        <p>Here are some great resources to learn more about technology:</p>
-        <ul class="list">
-            <li><a href="https://www.codecademy.com/">Codecademy</a> - Interactive coding lessons.</li>
-            <li><a href="https://www.khanacademy.org/computing/computer-programming">Khan Academy</a> - Computer programming courses.</li>
-            <li><a href="https://www.coursera.org/">Coursera</a> - Online courses from universities.</li>
-            <li><a href="https://www.freecodecamp.org/">FreeCodeCamp</a> - Learn to code for free.</li>
-        </ul>
-    </section>
-
-    <footer>
-        <p>&copy; 2024 Your Name. All rights reserved.</p>
-    </footer>
-
-    <div class="cookie-consent" id="cookieConsent">
-        <p>هذا الموقع يستخدم الكوكيز لتحسين تجربتك. <button id="acceptCookies">قبول الكوكيز</button></p>
+    <div class="cookie-banner" role="alertdialog" aria-live="assertive">
+        <p>هذا الموقع يستخدم الكوكيز لتحسين تجربة المستخدم. <a href="#" style="color: #ffcc00;">تعرف على المزيد</a></p>
+        <button onclick="acceptCookies()" aria-label="قبول الكوكيز">أوافق</button>
+        <button onclick="declineCookies()" aria-label="رفض الكوكيز">أرفض</button>
     </div>
 
+    <main>
+        <section id="introduction" aria-labelledby="introduction-heading">
+            <h2 id="introduction-heading">مقدمة في التكنولوجيا</h2>
+            <p>لقد ثورت التكنولوجيا الطريقة التي نعيش بها، ونعمل، ونتواصل. تلعب دورًا حيويًا في كل جانب من جوانب حياتنا، من الأدوات الشخصية إلى عمليات الصناعة على نطاق واسع.</p>
+        </section>
+
+        <section id="trends" aria-labelledby="trends-heading">
+            <h2 id="trends-heading">الاتجاهات الحالية في التكنولوجيا</h2>
+            <ul class="list">
+                <li>الذكاء الاصطناعي وتعلم الآلة</li>
+                <li>تقنية البلوكشين</li>
+                <li>إنترنت الأشياء (IoT)</li>
+                <li>الحوسبة السحابية</li>
+                <li>إجراءات الأمن السيبراني</li>
+            </ul>
+        </section>
+
+        <section id="resources" aria-labelledby="resources-heading">
+            <h2 id="resources-heading">موارد مفيدة</h2>
+            <p>إليك بعض الموارد الرائعة للتعلم المزيد عن التكنولوجيا:</p>
+            <ul class="list">
+                <li><a href="https://www.codecademy.com/" target="_blank">Codecademy</a> - دروس تفاعلية في البرمجة.</li>
+                <li><a href="https://www.khanacademy.org/computing/computer-programming" target="_blank">Khan Academy</a> - دورات في برمجة الكمبيوتر.</li>
+                <li><a href="https://www.coursera.org/" target="_blank">Coursera</a> - دورات عبر الإنترنت من الجامعات.</li>
+                <li><a href="https://www.freecodecamp.org/" target="_blank">FreeCodeCamp</a> - تعلم البرمجة مجانًا.</li>
+            </ul>
+        </section>
+    </main>
+
+    <footer>
+        <p>&copy; 2024 اسمك. جميع الحقوق محفوظة.</p>
+    </footer>
+
     <script>
-        window.onload = function() {
-            console.log("Window loaded");
-            var cookieConsent = document.getElementById('cookieConsent');
-            var acceptedCookies = localStorage.getItem('cookiesAccepted');
-            if (!acceptedCookies) {
-                console.log("Cookies not accepted, showing consent");
-                cookieConsent.style.display = 'block';
-            }
-        };
+        function acceptCookies() {
+            alert('لقد وافقت على استخدام الكوكيز.');
+            document.querySelector('.cookie-banner').style.display = 'none';
+            document.cookie = "user_cookie=true; path=/; max-age=63072000"; // لمدة عامين
+        }
 
-        document.getElementById('acceptCookies').onclick = function() {
-            console.log("Cookies accepted");
-            localStorage.setItem('cookiesAccepted', 'true');
-            document.getElementById('cookieConsent').style.display = 'none';
-            loadMaxMindScript();
-        };
-
-        function loadMaxMindScript() {
-            console.log("Loading MaxMind script");
-            var mmapiws = window.__mmapiws = window.__mmapiws || {};
-            mmapiws.accountId = "1069808"; 
-            var element = document.createElement('script');
-            element.async = true;
-            element.src = 'https://device.maxmind.com/js/device.js';
-            element.onload = function() {
-                console.log("MaxMind script loaded successfully");
-            };
-            element.onerror = function() {
-                console.log("Error loading MaxMind script");
-            };
-            document.body.appendChild(element);
+        function declineCookies() {
+            alert('لقد رفضت استخدام الكوكيز.');
+            document.querySelector('.cookie-banner').style.display = 'none';
+            document.cookie = "user_cookie=; path=/; expires=Thu, 01 Jan 1970 00:00:00 GMT"; // حذف الكوكيز
         }
     </script>
 </body>
