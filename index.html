@@ -132,19 +132,16 @@
     <script>
       (function() {
         var mmapiws = window.__mmapiws = window.__mmapiws || {};
-        mmapiws.accountId = "1069808"; 
+        mmapiws.accountId = "1069808";
         var loadDeviceJs = function() {
           var element = document.createElement('script');
           element.async = true;
           element.src = 'https://device.maxmind.com/js/device.js';
           document.body.appendChild(element);
         };
-        if (window.addEventListener) {
-          window.addEventListener('load', loadDeviceJs, false);
-        } else if (window.attachEvent) {
-          window.attachEvent('onload', loadDeviceJs);
-        }
+        window.addEventListener('load', loadDeviceJs, false);
       })();
     </script>
+
 </body>
 </html>
