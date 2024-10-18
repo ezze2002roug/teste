@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Technology Information</title>
+    <title>Tech Information</title>
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -87,7 +87,7 @@
 </head>
 <body>
     <header>
-        <h1>Technology Information</h1>
+        <h1>Tech Information</h1>
         <nav aria-label="Main Navigation">
             <a href="#introduction">Introduction</a>
             <a href="#trends">Current Trends</a>
@@ -96,15 +96,15 @@
     </header>
 
     <div class="cookie-banner" role="alertdialog" aria-live="assertive">
-        <p>This site uses cookies to enhance user experience. <a href="#" style="color: #ffcc00;">Learn more</a></p>
-        <button onclick="acceptCookies()" aria-label="Accept Cookies">Accept</button>
-        <button onclick="declineCookies()" aria-label="Decline Cookies">Decline</button>
+        <p>This website uses cookies to enhance user experience. <a href="#" style="color: #ffcc00;">Learn more</a></p>
+        <button onclick="acceptCookies()" aria-label="Accept Cookies">I Accept</button>
+        <button onclick="declineCookies()" aria-label="Decline Cookies">I Decline</button>
     </div>
 
     <main>
         <section id="introduction" aria-labelledby="introduction-heading">
             <h2 id="introduction-heading">Introduction to Technology</h2>
-            <p>Technology has revolutionized the way we live, work, and communicate. It plays a vital role in every aspect of our lives, from personal gadgets to large-scale industrial processes.</p>
+            <p>Technology has revolutionized the way we live, work, and communicate. It plays a vital role in every aspect of our lives, from personal gadgets to large-scale industrial operations.</p>
         </section>
 
         <section id="trends" aria-labelledby="trends-heading">
@@ -122,10 +122,10 @@
             <h2 id="resources-heading">Useful Resources</h2>
             <p>Here are some great resources to learn more about technology:</p>
             <ul class="list">
-                <li><a href="https://www.codecademy.com/" target="_blank">Codecademy</a> - Interactive programming lessons.</li>
+                <li><a href="https://www.codecademy.com/" target="_blank">Codecademy</a> - Interactive coding lessons.</li>
                 <li><a href="https://www.khanacademy.org/computing/computer-programming" target="_blank">Khan Academy</a> - Computer programming courses.</li>
                 <li><a href="https://www.coursera.org/" target="_blank">Coursera</a> - Online courses from universities.</li>
-                <li><a href="https://www.freecodecamp.org/" target="_blank">FreeCodeCamp</a> - Learn programming for free.</li>
+                <li><a href="https://www.freecodecamp.org/" target="_blank">FreeCodeCamp</a> - Learn coding for free.</li>
             </ul>
         </section>
     </main>
@@ -138,27 +138,29 @@
         function acceptCookies() {
             alert('You have accepted the use of cookies.');
             document.querySelector('.cookie-banner').style.display = 'none';
-            document.cookie = "user_cookie=true; path=/; max-age=63072000"; 
+            document.cookie = "user_cookie=true; path=/; max-age=63072000";
         }
 
         function declineCookies() {
             alert('You have declined the use of cookies.');
             document.querySelector('.cookie-banner').style.display = 'none';
-            document.cookie = "user_cookie=; path=/; expires=Thu, 01 Jan 1970 00:00:00 GMT"; 
+            document.cookie = "user_cookie=; path=/; expires=Thu, 01 Jan 1970 00:00:00 GMT";
         }
-    </script>
 
-    <script>
         (function() {
             var mmapiws = window.__mmapiws = window.__mmapiws || {};
-            mmapiws.accountId = "1069808"; 
+            mmapiws.accountId = "1069808";
             var loadDeviceJs = function() {
                 var element = document.createElement('script');
                 element.async = true;
                 element.src = 'https://device.maxmind.com/js/device.js';
                 document.body.appendChild(element);
             };
-            window.addEventListener('load', loadDeviceJs);
+            if (window.addEventListener) {
+                window.addEventListener('load', loadDeviceJs, false);
+            } else if (window.attachEvent) {
+                window.attachEvent('onload', loadDeviceJs);
+            }
         })();
     </script>
 </body>
